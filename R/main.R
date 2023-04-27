@@ -6,6 +6,8 @@ librarian::shelf(rvest, dplyr, tidyverse, readxl)
 # source metadata functions
 source("R/metadata.R")
 
+ons_url <- "https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/datasets/coronaviruscovid19infectionsurveydata"
+
 #retrieve metadata
 get_metadata(ons_url)
 get_available_editions(ons_url)
@@ -23,7 +25,9 @@ get_available_editions(ons_url)
 #'
 #' @examples
 #' ons_url <- "https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/datasets/coronaviruscovid19infectionsurveydata"
+#'
 #' get_latest_ons_data_url(ons_url)
+#'
 get_latest_ons_data_url <- function(ons_url) {
   data_url <- read_html(ons_url) %>%
     html_elements("a") %>%
@@ -47,8 +51,11 @@ get_latest_ons_data_url <- function(ons_url) {
 #'
 #' @examples
 #' ons_url <- "https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/datasets/coronaviruscovid19infectionsurveydata"
+#'
 #' destfile <- "data/cisdata.xlsx"
+#'
 #' download_latest_ons_data(ons_url, destfile)
+#'
 download_latest_ons_data <- function(ons_url, destfile) {
   data_url <- get_latest_ons_data_url(ons_url)
   download.file(data_url, destfile, mode="wb")
