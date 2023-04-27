@@ -2,7 +2,7 @@
 if (!requireNamespace("librarian")) install.packages("librarian")
 
 librarian::shelf(rvest, dplyr, tidyverse, readxl)
-
+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
 # source metadata functions
 source("src/get_ons_metadata.r")
 
@@ -14,6 +14,14 @@ get_available_editions(ons_url)
 # Searches the ons_url for any xlsx links, turns relative links to absolute,
 # then filters to the first (assuming most recent) link
 
+#' Title
+#'
+#' @param ons_url
+#'
+#' @return
+#' @export
+#'
+#' @examples
 get_latest_ons_data_url <- function(ons_url) {
   data_url <- read_html(ons_url) %>%
     html_elements("a") %>%
