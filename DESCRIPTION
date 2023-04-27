@@ -1,10 +1,9 @@
 Package: onswebscrapper
-Title: Package for scrapping data from www.ons.gov.uk
+Title: Package for scrapping data from the UK Office for National Statistics website
 Version: 0.0.0.9000
 Authors@R: 
     person("Caroline", "Hough", , "caroline.hough@dhsc.gov.uk"
-Description: A package of functions to facilitate webscrapping metadata and 
-downloading datasets from the UK Office for National Statistics website. 
+Description: A package of functions to facilitate webscrapping metadata and downloading datasets from the UK Office for National Statistics website. 
 License: `use_mit_license()`
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
