@@ -1,6 +1,3 @@
-library(tidyverse)
-library(rvest)
-
 # functions to extract relevant metadata - title, release date, next updated, about this dataset, editions available
 
 #generic function for retrieving html text

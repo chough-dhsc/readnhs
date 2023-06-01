@@ -1,8 +1,3 @@
-# load packages
-if (!requireNamespace("librarian")) install.packages("librarian")
-
-librarian::shelf(rvest, dplyr, tidyverse, readxl)
-
 # source metadata functions
 source("R/metadata.R")
 
