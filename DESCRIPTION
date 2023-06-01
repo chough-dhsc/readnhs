@@ -16,4 +16,6 @@ Suggests:
     rmarkdown
 VignetteBuilder: knitr
 Imports: 
-    lintr
+    dplyr,
+    magrittr,
+    rvest
