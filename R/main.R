@@ -16,7 +16,7 @@ get_available_editions(ons_url)
 #' @param ons_url The URL for the ONS webpage which contains embedded dataset link/s.
 #'
 #' @return data_url - the first, assuming most recent, data URL on the webpage
-#' @export
+#' @export get_latest_ons_data_url
 #'
 #' @examples
 #' ons_url <- "https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/datasets/coronaviruscovid19infectionsurveydata"
@@ -42,7 +42,7 @@ get_latest_ons_data_url <- function(ons_url) {
 #' @param destfile The destination location where you want to save the file.
 #'
 #' @return The destination file path
-#' @export
+#' @export download_latest_ons_data
 #'
 #' @examples
 #' ons_url <- "https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/datasets/coronaviruscovid19infectionsurveydata"
