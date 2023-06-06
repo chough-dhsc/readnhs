@@ -1,10 +1,12 @@
-# source metadata functions
-source("R/metadata.R")
-
 #specify dependency packages
 #' @import dplyr
 #' @import magrittr
 #' @import rvest
+
+install.packages("magrittr")
+
+# source metadata functions
+source("R/metadata.R")
 
 ons_url <- "https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/datasets/coronaviruscovid19infectionsurveydata"
 
