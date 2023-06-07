@@ -7,20 +7,30 @@
 #' @param ons_url The URL for the ONS webpage which contains embedded dataset link/s.
 #'
 #' @return data_url - the first, assuming most recent, data URL on the webpage
+#'
+#' @importFrom gdata first
+#' @importFrom rvest read_html
+#' @importFrom rvest html_element
+#' @importFrom rvest html_attr
+#' @importFrom stringr str_subset
+#' @importFrom xml2 url_absolute
+#'
 #' @export
 #'
 #' @examples
-#' ons_url <- "https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/datasets/coronaviruscovid19infectionsurveydata"
+#' ons_url <- paste("https://www.ons.gov.uk/peoplepopulationandcommunity/",
+#' "healthandsocialcare/conditionsanddiseases/datasets/coronaviruscovid19",
+#' "infectionsurveydata", sep="")
 #'
 #' get_latest_ons_data_url(ons_url)
 #'
 get_latest_ons_data_url <- function(ons_url) {
   data_url <- rvest::read_html(ons_url) %>%
-    html_elements("a") %>%
-    html_attr("href") %>%
-    str_subset(".xlsx") %>%
-    url_absolute(ons_url) %>%
-    first()
+    rvest::html_elements("a") %>%
+    rvest::html_attr("href") %>%
+    stringr::str_subset(".xlsx") %>%
+    xml2::url_absolute(ons_url) %>%
+    gdata::first()
   return(data_url)
 }
 
@@ -37,7 +47,9 @@ get_latest_ons_data_url <- function(ons_url) {
 #' @export
 #'
 #' @examples
-#' ons_url <- "https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/datasets/coronaviruscovid19infectionsurveydata"
+#' ons_url <- paste("https://www.ons.gov.uk/peoplepopulationandcommunity/",
+#' "healthandsocialcare/conditionsanddiseases/datasets/coronaviruscovid19",
+#' "infectionsurveydata", sep="")
 #'
 #' destfile <- "data/cisdata.xlsx"
 #'
@@ -45,7 +57,7 @@ get_latest_ons_data_url <- function(ons_url) {
 #'
 download_latest_ons_data <- function(ons_url, destfile) {
   data_url <- get_latest_ons_data_url(ons_url)
-  download.file(data_url, destfile, mode="wb")
+  utils::download.file(data_url, destfile, mode="wb")
   return(destfile)
 }
 
