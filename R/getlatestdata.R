@@ -33,6 +33,7 @@ get_latest_ons_data_url <- function(ons_url) {
 #' @param destfile The destination location where you want to save the file.
 #'
 #' @return The destination file path
+#' @importFrom utils download.file
 #' @export
 #'
 #' @examples
