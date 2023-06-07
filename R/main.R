@@ -1,14 +1,3 @@
-
-
-# source metadata functions
-# source("R/metadata.R")
-
-# ons_url <- "https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/datasets/coronaviruscovid19infectionsurveydata"
-#
-# #retrieve metadata
-# get_metadata(ons_url)
-# get_available_editions(ons_url)
-
 # function to extract url of latest xlsx file on that webpage
 # Searches the ons_url for any xlsx links, turns relative links to absolute,
 # then filters to the first (assuming most recent) link
@@ -26,7 +15,7 @@
 #' get_latest_ons_data_url(ons_url)
 #'
 get_latest_ons_data_url <- function(ons_url) {
-  data_url <- read_html(ons_url) %>%
+  data_url <- rvest::read_html(ons_url) %>%
     html_elements("a") %>%
     html_attr("href") %>%
     str_subset(".xlsx") %>%
@@ -44,7 +33,7 @@ get_latest_ons_data_url <- function(ons_url) {
 #' @param destfile The destination location where you want to save the file.
 #'
 #' @return The destination file path
-#' @export download_latest_ons_data
+#' @export
 #'
 #' @examples
 #' ons_url <- "https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/datasets/coronaviruscovid19infectionsurveydata"
