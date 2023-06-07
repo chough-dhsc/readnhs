@@ -7,7 +7,7 @@
 #' @param element_info The html element you want to read.
 #'
 #' @return html_text_script The text from the element you have specified.
-#' @export get_html_text
+#' @export
 #'
 #' @examples
 #' ons_url <- "https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/datasets/coronaviruscovid19infectionsurveydata"
@@ -29,7 +29,7 @@ get_html_text <- function(ons_url, element_info){
 #' @param ons_url The ONS URL which contains the embedded dataset link.
 #'
 #' @return dataset_title The title of the dataset.
-#' @export get_dataset_title
+#' @export
 #'
 #' @examples
 #' ons_url <- "https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/datasets/coronaviruscovid19infectionsurveydata"
@@ -47,7 +47,7 @@ get_dataset_title <-function(ons_url){
 #' @param ons_url The ONS URL which contains the embedded dataset link.
 #'
 #' @return release_date The release date of the latest dataset available.
-#' @export get_release_date
+#' @export
 #'
 #' @examples
 #' ons_url <- "https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/datasets/coronaviruscovid19infectionsurveydata"
@@ -64,7 +64,7 @@ get_release_date <- function(ons_url) {
 #' @param ons_url The ONS URL which contains the embedded dataset link.
 #'
 #' @return next_update The date the next version of the dataset will be made available
-#' @export get_next_updated
+#' @export
 #'
 #' @examples
 #' ons_url <- "https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/datasets/coronaviruscovid19infectionsurveydata"
@@ -81,7 +81,7 @@ get_next_updated <- function(ons_url) {
 #' @param ons_url The ONS URL which contains the embedded dataset link.
 #'
 #' @return about_this dataset Additional information provided by ONS about this dataset.
-#' @export get_about_this_dataset
+#' @export
 #'
 #' @examples
 #' ons_url <- "https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/datasets/coronaviruscovid19infectionsurveydata"
@@ -99,7 +99,7 @@ get_about_this_dataset <- function(ons_url){
 #' @param ons_url The ONS URL which contains the embedded dataset link.
 #'
 #' @return available_editions A list of all available editions of the dataset.
-#' @export get_available_editions
+#' @export
 #'
 #' @examples
 #' ons_url <- "https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/datasets/coronaviruscovid19infectionsurveydata"
@@ -117,7 +117,7 @@ get_available_editions <- function(ons_url){
 #' @param ons_url The ONS URL which contains the embedded dataset link.
 #'
 #' @return latest_edition The latest edition name of the dataset
-#' @export get_latest_edition
+#' @export
 #'
 #' @examples
 #' ons_url <- "https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/datasets/coronaviruscovid19infectionsurveydata"
@@ -136,7 +136,7 @@ get_latest_edition <- function(ons_url){
 #' @param ons_url The ONS URL which contains the embedded dataset link.
 #'
 #' @return metadata A list containing the dataset title, latest edition, release date, when it will next be updated and additional information about the dataset.
-#' @export get_metadata
+#' @export
 #'
 #' @examples
 #' ons_url <- "https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/datasets/coronaviruscovid19infectionsurveydata"
