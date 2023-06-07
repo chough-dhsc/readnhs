@@ -1,18 +1,13 @@
-#specify dependency packages
-#' @import dplyr
-#' @import magrittr
-#' @import rvest
 
-install.packages("magrittr")
 
 # source metadata functions
-source("R/metadata.R")
+# source("R/metadata.R")
 
-ons_url <- "https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/datasets/coronaviruscovid19infectionsurveydata"
-
-#retrieve metadata
-get_metadata(ons_url)
-get_available_editions(ons_url)
+# ons_url <- "https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/datasets/coronaviruscovid19infectionsurveydata"
+#
+# #retrieve metadata
+# get_metadata(ons_url)
+# get_available_editions(ons_url)
 
 # function to extract url of latest xlsx file on that webpage
 # Searches the ons_url for any xlsx links, turns relative links to absolute,
@@ -23,7 +18,7 @@ get_available_editions(ons_url)
 #' @param ons_url The URL for the ONS webpage which contains embedded dataset link/s.
 #'
 #' @return data_url - the first, assuming most recent, data URL on the webpage
-#' @export get_latest_ons_data_url
+#' @export
 #'
 #' @examples
 #' ons_url <- "https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/datasets/coronaviruscovid19infectionsurveydata"
