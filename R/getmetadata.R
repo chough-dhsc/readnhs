@@ -23,11 +23,16 @@
 #' get_html_text(ons_url, element_info)
 
 get_html_text <- function(ons_url, element_info){
+  if(RCurl::url.exists(ons_url)) { #URL validation test
   html_text_script <- rvest::read_html(ons_url) %>%
     rvest::html_elements(element_info) %>%
     rvest::html_text2()
   return(html_text_script)
+  } else {
+    print("Invalid URL")
+  }
 }
+
 
 #use generic function for retrieving html text within other get metadata functions
 #' Retrieves dataset title from ONS webpage
