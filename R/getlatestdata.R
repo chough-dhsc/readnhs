@@ -27,16 +27,22 @@
 #'
 get_latest_ons_data_url <- function(ons_url) {
   if(RCurl::url.exists(ons_url)) { #URL validation test
-    data_url <- rvest::read_html(ons_url) %>%
-    rvest::html_elements("a") %>%
-    rvest::html_attr("href") %>%
-    stringr::str_subset(".xlsx") %>%
-    xml2::url_absolute(ons_url) %>%
-    gdata::first()
-  return(data_url)
+    htmllist <- rvest::read_html(ons_url) %>%
+      rvest::html_elements("a") %>%
+      rvest::html_attr("href")
   } else {
-  print("Invalid URL")
-}
+    print("Invalid URL")
+  }
+
+  if(sum(str_detect(htmllist, '.xlsx')) > 0) { #test that data links are available
+    data_url <- htmllist %>%
+      stringr::str_subset(".xlsx") %>%
+      xml2::url_absolute(ons_url) %>%
+      gdata::first()
+    return(data_url)
+  } else {
+    print("No data links available")
+    }
 }
 
 # function to download latest data to destination location
@@ -64,7 +70,7 @@ get_latest_ons_data_url <- function(ons_url) {
 #'
 download_latest_ons_data <- function(ons_url, destfile) {
   if (!dir.exists(destfile)) {
-    dir.create(destfile)}
+    dir.create(destfile)} #checks if destfile directory exists and if not creates it
   if(RCurl::url.exists(ons_url)) { #URL validation test
   data_url <- get_latest_ons_data_url(ons_url)
   utils::download.file(data_url, destfile, mode="wb")
