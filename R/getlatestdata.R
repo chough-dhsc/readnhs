@@ -26,23 +26,30 @@
 #' get_latest_ons_data_url(ons_url)
 #'
 get_latest_ons_data_url <- function(ons_url) {
-  if(RCurl::url.exists(ons_url)) { #URL validation test
-    htmllist <- rvest::read_html(ons_url) %>%
-      rvest::html_elements("a") %>%
-      rvest::html_attr("href")
-  } else {
-    print("Invalid URL")
+  # URL validation test
+  if(!url.exists(ons_url)) {
+    stop("Invalid URL")
   }
 
-  if(sum(str_detect(htmllist, '.xlsx')) > 0) { #test that data links are available
-    data_url <- htmllist %>%
-      stringr::str_subset(".xlsx") %>%
-      xml2::url_absolute(ons_url) %>%
-      gdata::first()
-    return(data_url)
-  } else {
-    print("No data links available")
-    }
+  htmllist <- read_html(ons_url) %>%
+    html_elements("a") %>%
+    html_attr("href")
+#then subset data formats
+  #test if >1, if not stop
+
+  # test that data links are available
+  if(sum(str_detect(htmllist, '.xlsx')) == 0) {
+    stop("No data links available")
+  }
+
+  #stringr::str_subset(grepl("\\.ods$|\\.xls$|\\.csv$|\\.xlsx$"))
+
+  data_url <- htmllist %>%
+    str_subset(".xlsx") %>%
+    url_absolute(ons_url) %>%
+    first()
+
+  return(data_url)l
 }
 
 # function to download latest data to destination location
@@ -64,20 +71,18 @@ get_latest_ons_data_url <- function(ons_url) {
 #' "infectionsurveydata", sep="")
 #'
 #'
-#' destfile <- "data/cisdata.xlsx"
+#' destfilepath <- "data/cisdata.xlsx"
 #'
 #' download_latest_ons_data(ons_url, destfile)
 #'
-download_latest_ons_data <- function(ons_url, destfile) {
+download_latest_ons_data <- function(ons_url, destfilepath) {
   if (!dir.exists(destfile)) {
     dir.create(destfile)} #checks if destfile directory exists and if not creates it
-  if(RCurl::url.exists(ons_url)) { #URL validation test
-  data_url <- get_latest_ons_data_url(ons_url)
-  utils::download.file(data_url, destfile, mode="wb")
-  return(destfile)
-  } else {
-    print("Invalid URL")
-  }
+# dirname(normalizePath(destfilepath)) - check if this exists and if not create it and inform user you have created it
+
+    data_url <- get_latest_ons_data_url(ons_url)
+    download.file(data_url, destfile, mode="wb")
+    return(destfile)
 }
 
-
+#check if directory exists, if it doesn't, print statement saying this directory doesn't exist and will create one
