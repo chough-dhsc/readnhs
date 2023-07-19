@@ -48,9 +48,12 @@ get_latest_ons_data_url <- function(ons_url) {
 }
 
 # function to download latest data to destination location
-# (need to specify mode as wb(write binary) otherwise it will try to make the file compatible with Windows)
+# (need to specify mode as wb(write binary) otherwise it will try to make the
+# file compatible with Windows)
 
 #' Downloads first (assuming most recent) dataset link embedded on ONS webpage
+#' and saves in the user specified destination location (and will create new
+#' folder directories if required)
 #'
 #' @param ons_url The URL for the ONS webpage which contains embedded dataset link/s.
 #' @param destfile The destination location where you want to save the file.
