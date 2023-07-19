@@ -17,11 +17,8 @@ test_that("broken url generates error", {
     "healthandsocialcare/conditionsanddiseases/datasets/coronaviruscovid19",
     "infectionsurveydata"
   )
-  df <- get_latest_ons_data_url(ons_url)
 
-  result <- "Invalid URL"
-
-  expect_equal(df, result)
+  expect_error(get_latest_ons_data_url(ons_url), "Invalid URL")
 })
 
 test_that("url with no links to data generates error", {
