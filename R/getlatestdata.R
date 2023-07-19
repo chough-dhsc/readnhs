@@ -63,6 +63,8 @@ get_latest_ons_data_url <- function(ons_url) {
 #' download_latest_ons_data(ons_url, destfile)
 #'
 download_latest_ons_data <- function(ons_url, destfile) {
+  if (!dir.exists(destfile)) {
+    dir.create(destfile)}
   if(RCurl::url.exists(ons_url)) { #URL validation test
   data_url <- get_latest_ons_data_url(ons_url)
   utils::download.file(data_url, destfile, mode="wb")
