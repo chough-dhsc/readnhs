@@ -11,6 +11,7 @@
 #' @importFrom rvest read_html
 #' @importFrom rvest html_elements
 #' @importFrom rvest html_text2
+#' @importFrom RCurl url.exists
 #' @export
 #'
 #' @examples
@@ -23,11 +24,11 @@
 #' get_html_text(ons_url, element_info)
 
 get_html_text <- function(ons_url, element_info){
-  if(RCurl::url.exists(ons_url)) { #URL validation test
-  html_text_script <- rvest::read_html(ons_url) %>%
-    rvest::html_elements(element_info) %>%
-    rvest::html_text2()
-  return(html_text_script)
+  if(url.exists(ons_url)) { #URL validation test
+    html_text_script <- read_html(ons_url) %>%
+      html_elements(element_info) %>%
+      html_text2()
+    return(html_text_script)
   } else {
     print("Invalid URL")
   }
@@ -52,7 +53,7 @@ get_html_text <- function(ons_url, element_info){
 #'
 get_dataset_title <-function(ons_url){
   dataset_title <- get_html_text(ons_url,"h1.page-intro__title") %>%
-    stringr::str_replace("Dataset ","")
+    str_replace("Dataset ","")
   return(dataset_title)
 }
 
@@ -111,7 +112,7 @@ get_next_updated <- function(ons_url) {
 
 get_about_this_dataset <- function(ons_url){
   about_this_dataset <- get_html_text(ons_url, "#main section:nth-child(1)") %>%
-    stringr::str_replace("(.*?)\n","")
+    str_replace("(.*?)\n","")
   return(about_this_dataset)
 }
 
@@ -132,7 +133,7 @@ get_about_this_dataset <- function(ons_url){
 
 get_available_editions <- function(ons_url){
   available_editions <- get_html_text(ons_url, "h3") %>%
-    stringr::str_subset("edition")
+    str_subset("edition")
   return(available_editions)
 }
 
@@ -153,7 +154,7 @@ get_available_editions <- function(ons_url){
 
 get_latest_edition <- function(ons_url){
   latest_edition <- get_available_editions(ons_url) %>%
-    gdata::first()
+    first()
   return(latest_edition)
 }
 
