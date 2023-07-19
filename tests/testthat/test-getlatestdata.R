@@ -19,11 +19,30 @@ test_that("broken url generates error", {
   )
   df <- get_latest_ons_data_url(ons_url)
 
-  result <- "https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/datasets/coronaviruscovid19infectionsurveydata/2023/20230310covid19infectionsurveydatasetsengland.xlsx"
+  result <- "Invalid URL"
 
-  df != result
+  expect_equal(df, result)
 })
 
+test_that("url with no links to data generates error", {
+  ons_url <- "https://www.ons.gov.uk/peoplepopulationandcommunity"
+
+  df <- get_latest_ons_data_url(ons_url)
+
+  result <- "No data links available"
+
+  expect_equal(df, result)
+})
+
+test_that("number parsed as ons_url generates error", {
+  ons_url <- 999
+
+  df <- get_latest_ons_data_url(ons_url)
+
+  result <- "Invalid URL"
+
+  expect_equal(df, result)
+})
 
 test_that("data is downloaded if valid destination inputted", {
   ons_url <- paste0(
@@ -48,12 +67,12 @@ test_that("invalid destination generates error", {
     "healthandsocialcare/conditionsanddiseases/datasets/coronaviruscovid19",
     "infectionsurveydata"
   )
-  destfile <- "data/cisdata"
+  destfile <- "datafoldertest/cisdata.xlsx"
 
   df <- download_latest_ons_data(ons_url, destfile)
 
-  result <- "data/cisdata.xlsx"
+  result <- "datafoldertest/cisdata.xlsx"
 
-  df != result
+  expect_equal(df,result)
 })
 
