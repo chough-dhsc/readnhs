@@ -8,6 +8,7 @@
 #'
 #' @return data_url - the first, assuming most recent, data URL on the webpage
 #'
+#' @importFrom RCurl url.exists
 #' @importFrom gdata first
 #' @importFrom rvest read_html
 #' @importFrom rvest html_element
@@ -25,13 +26,17 @@
 #' get_latest_ons_data_url(ons_url)
 #'
 get_latest_ons_data_url <- function(ons_url) {
-  data_url <- rvest::read_html(ons_url) %>%
+  if(RCurl::url.exists(ons_url)) {
+    data_url <- rvest::read_html(ons_url) %>%
     rvest::html_elements("a") %>%
     rvest::html_attr("href") %>%
     stringr::str_subset(".xlsx") %>%
     xml2::url_absolute(ons_url) %>%
     gdata::first()
   return(data_url)
+  } else {
+  print("Invalid URL")
+}
 }
 
 # function to download latest data to destination location
@@ -43,6 +48,7 @@ get_latest_ons_data_url <- function(ons_url) {
 #' @param destfile The destination location where you want to save the file.
 #'
 #' @return The destination file path
+#' @importFrom RCurl url.exists
 #' @importFrom utils download.file
 #' @export
 #'
@@ -56,8 +62,12 @@ get_latest_ons_data_url <- function(ons_url) {
 #' download_latest_ons_data(ons_url, destfile)
 #'
 download_latest_ons_data <- function(ons_url, destfile) {
+  if(RCurl::url.exists(ons_url)) {
   data_url <- get_latest_ons_data_url(ons_url)
   utils::download.file(data_url, destfile, mode="wb")
   return(destfile)
+  } else {
+    print("Invalid URL")
+  }
 }
 
