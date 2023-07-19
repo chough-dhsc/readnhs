@@ -26,7 +26,7 @@
 #' get_latest_ons_data_url(ons_url)
 #'
 get_latest_ons_data_url <- function(ons_url) {
-  if(RCurl::url.exists(ons_url)) {
+  if(RCurl::url.exists(ons_url)) { #URL validation test
     data_url <- rvest::read_html(ons_url) %>%
     rvest::html_elements("a") %>%
     rvest::html_attr("href") %>%
@@ -57,12 +57,13 @@ get_latest_ons_data_url <- function(ons_url) {
 #' "healthandsocialcare/conditionsanddiseases/datasets/coronaviruscovid19",
 #' "infectionsurveydata", sep="")
 #'
+#'
 #' destfile <- "data/cisdata.xlsx"
 #'
 #' download_latest_ons_data(ons_url, destfile)
 #'
 download_latest_ons_data <- function(ons_url, destfile) {
-  if(RCurl::url.exists(ons_url)) {
+  if(RCurl::url.exists(ons_url)) { #URL validation test
   data_url <- get_latest_ons_data_url(ons_url)
   utils::download.file(data_url, destfile, mode="wb")
   return(destfile)
@@ -70,4 +71,5 @@ download_latest_ons_data <- function(ons_url, destfile) {
     print("Invalid URL")
   }
 }
+
 
