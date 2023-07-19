@@ -29,3 +29,17 @@ test_that("broken url generates error", {
 
   expect_equal(df, result)
 })
+
+test_that("number parsed as ons_url generates error", {
+  ons_url <- 999
+
+  element_info <- "h1.page-intro__title"
+
+  df <- get_html_text(ons_url, element_info)
+
+  result <- "Invalid URL"
+
+  expect_equal(df, result)
+})
+
+#test if html element input is invalid
