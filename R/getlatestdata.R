@@ -31,25 +31,20 @@ get_latest_ons_data_url <- function(ons_url) {
     stop("Invalid URL")
   }
 
-  htmllist <- read_html(ons_url) %>%
+  data_urls <- read_html(ons_url) %>%
     html_elements("a") %>%
-    html_attr("href")
-#then subset data formats
-  #test if >1, if not stop
+    html_attr("href") %>%
+    str_subset("\\.ods$|\\.xls$|\\.csv$|\\.xlsx$") %>%
+    url_absolute(ons_url)
 
   # test that data links are available
-  if(sum(str_detect(htmllist, '.xlsx')) == 0) {
+  if(length(data_urls) == 0) {
     stop("No data links available")
   }
 
-  #stringr::str_subset(grepl("\\.ods$|\\.xls$|\\.csv$|\\.xlsx$"))
+  data_url <- first(data_urls)
 
-  data_url <- htmllist %>%
-    str_subset(".xlsx") %>%
-    url_absolute(ons_url) %>%
-    first()
-
-  return(data_url)l
+  return(data_url)
 }
 
 # function to download latest data to destination location
@@ -78,11 +73,11 @@ get_latest_ons_data_url <- function(ons_url) {
 download_latest_ons_data <- function(ons_url, destfilepath) {
   if (!dir.exists(destfile)) {
     dir.create(destfile)} #checks if destfile directory exists and if not creates it
-# dirname(normalizePath(destfilepath)) - check if this exists and if not create it and inform user you have created it
+  # dirname(normalizePath(destfilepath)) - check if this exists and if not create it and inform user you have created it
 
-    data_url <- get_latest_ons_data_url(ons_url)
-    download.file(data_url, destfile, mode="wb")
-    return(destfile)
+  data_url <- get_latest_ons_data_url(ons_url)
+  download.file(data_url, destfile, mode="wb")
+  return(destfile)
 }
 
 #check if directory exists, if it doesn't, print statement saying this directory doesn't exist and will create one
