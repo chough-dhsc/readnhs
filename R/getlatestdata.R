@@ -68,16 +68,20 @@ get_latest_ons_data_url <- function(ons_url) {
 #'
 #' destfilepath <- "data/cisdata.xlsx"
 #'
-#' download_latest_ons_data(ons_url, destfile)
+#' download_latest_ons_data(ons_url, destfilepath)
 #'
 download_latest_ons_data <- function(ons_url, destfilepath) {
-  if (!dir.exists(destfile)) {
-    dir.create(destfile)} #checks if destfile directory exists and if not creates it
-  # dirname(normalizePath(destfilepath)) - check if this exists and if not create it and inform user you have created it
+
+  #checks if destfile directory exists and if not creates it
+  absolute_directory <- normalizePath(dirname(destfilepath))
+
+  if(!dir.exists(absolute_directory)) {
+    dir.create(absolute_directory)
+    print(paste0("Directory did not exist and has been created: ", absolute_directory))
+  }
 
   data_url <- get_latest_ons_data_url(ons_url)
-  download.file(data_url, destfile, mode="wb")
-  return(destfile)
+  download.file(data_url, destfilepath, mode="wb")
+  return(normalizePath(destfilepath))
 }
 
-#check if directory exists, if it doesn't, print statement saying this directory doesn't exist and will create one
