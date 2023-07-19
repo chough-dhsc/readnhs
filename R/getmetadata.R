@@ -1,6 +1,6 @@
 # functions to extract relevant metadata - title, release date, next updated, about this dataset, editions available
 
-#generic function for retrieving html text
+# generic function for retrieving html text
 #' Retrieves html text
 #'
 #' @param ons_url The ONS URL from which you want to read text.
@@ -24,18 +24,19 @@
 #' get_html_text(ons_url, element_info)
 
 get_html_text <- function(ons_url, element_info){
-  if(url.exists(ons_url)) { #URL validation test
-    html_text_script <- read_html(ons_url) %>%
-      html_elements(element_info) %>%
-      html_text2()
-    return(html_text_script)
-  } else {
-    print("Invalid URL")
+
+  # URL validation test
+  if(!url.exists(ons_url)) {
+    stop("Invalid URL")
   }
+
+  html_text_script <- read_html(ons_url) %>%
+    html_elements(element_info) %>%
+    html_text2()
+  return(html_text_script)
 }
 
-
-#use generic function for retrieving html text within other get metadata functions
+# use generic function for retrieving html text within other get metadata functions
 #' Retrieves dataset title from ONS webpage
 #'
 #' @param ons_url The ONS URL which contains the embedded dataset link.
