@@ -46,7 +46,7 @@ test_that("destfile directory is created if did not previously exist", {
   dir.exists(download_latest_ons_data(ons_url, destfilepath))
 })
 
-test_that("valid URL input results in file downloaded to existing/newly created destfile directory") {
+test_that("valid URL input results in file downloaded to existing or newly created destfile directory", {
   ons_url <- paste0(
     "https://www.ons.gov.uk/peoplepopulationandcommunity/",
     "healthandsocialcare/conditionsanddiseases/datasets/coronaviruscovid19",
@@ -57,7 +57,7 @@ test_that("valid URL input results in file downloaded to existing/newly created 
   download_latest_ons_data(ons_url, destfilepath)
 
   file.exists(destfilepath)
-}
+})
 
 test_that("invalid URL results in no data downloaded", {
   ons_url <- paste0(
