@@ -1,5 +1,5 @@
-# function to extract url of latest xlsx file on that webpage
-# Searches the ons_url for any xlsx links, turns relative links to absolute,
+# function to extract url of latest ods/xls/csv/xlsx file on that webpage
+# Checks URL is valid, then searches the ons_url for any xlsx links, turns relative links to absolute,
 # then filters to the first (assuming most recent) link
 
 #' Finds the first (assuming most recent) data (xlsx) URL on an ONS webpage
@@ -26,7 +26,7 @@
 #' get_latest_ons_data_url(ons_url)
 #'
 get_latest_ons_data_url <- function(ons_url) {
-  # URL validation test
+  # Tests if URL exists, if not stops
   if(!url.exists(ons_url)) {
     stop("Invalid URL")
   }
@@ -37,7 +37,7 @@ get_latest_ons_data_url <- function(ons_url) {
     str_subset("\\.ods$|\\.xls$|\\.csv$|\\.xlsx$") %>%
     url_absolute(ons_url)
 
-  # test that data links are available
+  # test that data links are available, if not stops
   if(length(data_urls) == 0) {
     stop("No data links available")
   }
