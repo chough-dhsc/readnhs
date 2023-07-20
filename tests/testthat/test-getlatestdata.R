@@ -11,7 +11,7 @@ test_that("valid url generates right output", {
   expect_equal(df, result)
 })
 
-test_that("broken url generates error", {
+test_that("invalid url generates error", {
   ons_url <- paste0(
     "https://ww.ons.gov.uk/peoplpopulationandcommunity/",
     "healthandsocialcare/conditionsanddiseases/datasets/coronaviruscovid19",
@@ -21,55 +21,64 @@ test_that("broken url generates error", {
   expect_error(get_latest_ons_data_url(ons_url), "Invalid URL")
 })
 
-test_that("url with no links to data generates error", {
-  ons_url <- "https://www.ons.gov.uk/peoplepopulationandcommunity"
-
-  df <- get_latest_ons_data_url(ons_url)
-
-  result <- "No data links available"
-
-  expect_equal(df, result)
-})
-
 test_that("number parsed as ons_url generates error", {
   ons_url <- 999
 
-  df <- get_latest_ons_data_url(ons_url)
-
-  result <- "Invalid URL"
-
-  expect_equal(df, result)
+  expect_error(get_latest_ons_data_url(ons_url), "Invalid URL")
 })
 
-test_that("data is downloaded if valid destination inputted", {
+
+test_that("url with no links to data generates error", {
+  ons_url <- "https://www.ons.gov.uk/peoplepopulationandcommunity"
+
+  expect_error(get_latest_ons_data_url(ons_url), "No data links available")
+
+})
+
+test_that("destfile directory is created if did not previously exist", {
   ons_url <- paste0(
     "https://www.ons.gov.uk/peoplepopulationandcommunity/",
+    "healthandsocialcare/conditionsanddiseases/datasets/coronaviruscovid19",
+    "infectionsurveydata")
+
+  destfilepath <- "data/cisdata.xlsx"
+
+  dir.exists(download_latest_ons_data(ons_url, destfilepath))
+})
+
+test_that("valid URL input results in file downloaded to existing/newly created destfile directory") {
+  ons_url <- paste0(
+    "https://www.ons.gov.uk/peoplepopulationandcommunity/",
+    "healthandsocialcare/conditionsanddiseases/datasets/coronaviruscovid19",
+    "infectionsurveydata")
+
+  destfilepath <- "data/cisdata.xlsx"
+
+  download_latest_ons_data(ons_url, destfilepath)
+
+  file.exists(destfilepath)
+}
+
+test_that("invalid URL results in no data downloaded", {
+  ons_url <- paste0(
+    "https://www.ons.gv.uk/poplepopulationandcommunity/",
     "healthandsocialcare/conditionsanddiseases/datasets/coronaviruscovid19",
     "infectionsurveydata"
   )
   destfile <- "data/cisdata.xlsx"
 
-  df <- download_latest_ons_data(ons_url, destfile)
+  download_latest_ons_data(ons_url, destfilepath)
 
-  result <- "data/cisdata.xlsx"
-
-  expect_equal(df, result)
+  !file.exists(destfilepath)
 })
 
-#unsure about this one as destfile is inputted and outputted
+test_that("URL with no data links results in no data downloaded", {
+  ons_url <- "https://www.ons.gov.uk/peoplepopulationandcommunity"
 
-test_that("invalid destination generates error", {
-  ons_url <- paste0(
-    "https://www.ons.gov.uk/peoplepopulationandcommunity/",
-    "healthandsocialcare/conditionsanddiseases/datasets/coronaviruscovid19",
-    "infectionsurveydata"
-  )
-  destfile <- "datafoldertest/cisdata.xlsx"
+  destfile <- "data/cisdata.xlsx"
 
-  df <- download_latest_ons_data(ons_url, destfile)
+  download_latest_ons_data(ons_url, destfile)
 
-  result <- "datafoldertest/cisdata.xlsx"
-
-  expect_equal(df,result)
+  !file.exists(destfilepath)
 })
 
