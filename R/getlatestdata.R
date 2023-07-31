@@ -26,6 +26,12 @@
 #' get_latest_ons_data_url(ons_url)
 #'
 get_latest_ons_data_url <- function(ons_url) {
+
+  # Tests it is a character string, if not stops
+  if(!is.character(ons_url)) {
+    stop("Invalid input")
+  }
+
   # Tests if URL exists, if not stops
   if(!url.exists(ons_url)) {
     stop("Invalid URL")
