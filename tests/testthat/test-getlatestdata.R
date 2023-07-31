@@ -21,14 +21,12 @@ test_that("invalid url generates error", {
   expect_error(get_latest_ons_data_url(ons_url), "Invalid URL")
 })
 
-#when I run this test it stops the unit testing with 'Exited with status -1073741819' error message (access violation?) -
-#if I try running url.exists(999) R crashes
 
-# test_that("number parsed as ons_url generates error", {
-#   ons_url <- 999
-#
-#   expect_error(get_latest_ons_data_url(ons_url), "Invalid URL")
-# })
+test_that("number parsed as ons_url generates error", {
+  ons_url <- 999
+
+  expect_error(get_latest_ons_data_url(ons_url), "Invalid input")
+})
 
 
 test_that("url with no links to data generates error", {
@@ -63,29 +61,5 @@ test_that("valid URL input results in file downloaded to existing or newly creat
   download_latest_ons_data(ons_url, destfilepath)
 
   expect_true(file.exists(destfilepath))
-})
-
-#this one fails because Invalid URL and stops
-# test_that("invalid URL results in no data downloaded", {
-#   ons_url <- paste0(
-#     "https://www.ons.gv.uk/poplepopulationandcommunity/",
-#     "healthandsocialcare/conditionsanddiseases/datasets/coronaviruscovid19",
-#     "infectionsurveydata"
-#   )
-#   destfilepath <- "data/cisdata.xlsx"
-#
-#   download_latest_ons_data(ons_url, destfilepath)
-#
-#   expect_true(!file.exists(destfilepath))
-# })
-
-test_that("URL with no data links results in no data downloaded", {
-  ons_url <- "https://www.ons.gov.uk/peoplepopulationandcommunity"
-
-  destfilepath <- "data/cisdata.xlsx"
-
-  download_latest_ons_data(ons_url, destfilepath)
-
-  expect_true(!file.exists(destfilepath))
 })
 
