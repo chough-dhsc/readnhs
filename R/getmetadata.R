@@ -25,7 +25,7 @@
 
 get_html_text <- function(ons_url, element_info){
 
-  # Tests it is a character object, if not stops
+  # Tests ons_url is a character object, if not stops
   if(!is.character(ons_url)) {
     stop("Invalid input")
   }
@@ -33,6 +33,11 @@ get_html_text <- function(ons_url, element_info){
   # URL validation test
   if(!url.exists(ons_url)) {
     stop("Invalid URL")
+  }
+
+  # Tests element_info is a single character string, if not stops
+  if(!is.character(element_info) | length(element_info) != 1) {
+    stop("Invalid element information input")
   }
 
   html_text_script <- read_html(ons_url) %>%
