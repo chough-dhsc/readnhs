@@ -37,6 +37,16 @@ test_that("url with no links to data generates error", {
 })
 
 
+test_that("parsing a vector containing multiple urls generates error", {
+  ons_url <- c("https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/datasets/coronaviruscovid19infectionsurveydata",
+               "https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/childhealth/datasets/coronaviruscasesinschoolpupilsengland",
+               "https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/childhealth/datasets/birthsandinfantmortalitybyethnicityenglandandwales")
+
+  expect_error(get_latest_ons_data_url(ons_url), "the condition has length > 1")
+
+})
+
+
 test_that("destfile directory is created if did not previously exist", {
   ons_url <- paste0(
     "https://www.ons.gov.uk/peoplepopulationandcommunity/",
@@ -62,4 +72,5 @@ test_that("valid URL input results in file downloaded to existing or newly creat
 
   expect_true(file.exists(destfilepath))
 })
+
 
