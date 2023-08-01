@@ -35,7 +35,19 @@ test_that("number parsed as ons_url generates error", {
   expect_error(get_html_text(ons_url, element_info), "Invalid input")
 })
 
-#what happens if you parse a vector of URLs?
-#how to test if html element input is invalid? - validate within function that its a single string not list
+test_that("html element_info is a single string otherwise generates error", {
+  ons_url <- paste0(
+    "https://www.ons.gov.uk/peoplepopulationandcommunity/",
+    "healthandsocialcare/conditionsanddiseases/datasets/coronaviruscovid19",
+    "infectionsurveydata"
+  )
+
+  element_info <- c("h1.page-intro__title", "button class", "higher")
+
+  expect_error(get_html_text(ons_url, element_info), "Invalid element information input")
+})
+
 #unit test for error/return empty string
+
+
 
