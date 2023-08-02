@@ -11,7 +11,7 @@ download_latest_ons_data(ons_url, destfilepath)
 \arguments{
 \item{ons_url}{The URL for the ONS webpage which contains embedded dataset link/s.}
 
-\item{destfile}{The destination location where you want to save the file.}
+\item{destfilepath}{The destination location where you want to save the file.}
 }
 \value{
 The destination file path
