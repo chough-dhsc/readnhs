@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/reference/test_package.html#special-files
 
 library(testthat)
-library(onswebscrapper)
+library(readons)
 
-test_check("onswebscrapper")
+test_check("readons")
