@@ -62,7 +62,7 @@ get_latest_ons_data_url <- function(ons_url) {
 #' folder directories if required)
 #'
 #' @param ons_url The URL for the ONS webpage which contains embedded dataset link/s.
-#' @param destfile The destination location where you want to save the file.
+#' @param destfilepath The destination location where you want to save the file.
 #'
 #' @return The destination file path
 #' @importFrom RCurl url.exists
