@@ -18,38 +18,39 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of onswebscrapper is to ...
+onswebscrapper aims to facilitate webscraping of datasets from the UK Office for National Statistics (ONS) website. It's goal is to remove the manual steps involved (and time taken) in navigating to an ONS webpage, searching for the most recent dataset of interest and downloading a local copy. It will be particularly useful for incorporating into routine analysis that needs to be regularly updated based on the latest ONS data.
 
 ## Installation
 
-You can install the development version of onswebscrapper from [GitHub](https://github.com/) with:
+You can install the onswebscrapper package as follows:
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("chough-dhsc/onswebscrapper")
+if (!requireNamespace("librarian")) install.packages("librarian")
+librarian::shelf(DataS-DHSC/onswebscrapper)
 ```
 
-## Example
+## Usage and Example
 
-This is a basic example which shows you how to solve a common problem:
+To use this package you will need the URL for the ONS webpage that contains the embedded data you are trying to download and will need to specify an end destination for where you would like to save the downloaded data.
 
-```{r example}
-library(onswebscrapper)
-## basic example code
+``` r
+# Assign the URL of the ONS webpage that contains required data to ons_url
+
+ons_url <- "https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/conditionsanddiseases/datasets/coronaviruscovid19infectionsurveydata"
+
+# Assign the destination you would like to save the downloaded data into as destfilepath (note that any new folder directories will be created if they do not already exist)
+
+destfilepath <- "data/cisdata.xlsx"
+
+# Download data to user specified destination
+
+download_latest_ons_data(ons_url, destfilepath)
+
+# Retrieve relevant metadata (dataset title, latest edition, release date, when it will next be updated and additional informaiton about the dataset)
+
+get_metadata(ons_url)
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+## Notes
 
-```{r cars}
-summary(cars)
-```
-
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this. You could also use GitHub Actions to re-render `README.Rmd` every time you push. An example workflow can be found here: <https://github.com/r-lib/actions/tree/v1/examples>.
-
-You can also embed plots, for example:
-
-```{r pressure, echo = FALSE}
-plot(pressure)
-```
-
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.
+This package assumes that the first dataset link embedded on the ONS webpage is the most recent. If ONS change the structure or formatting of their webpages then this package will need to be updated to reflect any changes.
