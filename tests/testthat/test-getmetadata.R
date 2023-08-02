@@ -47,7 +47,6 @@ test_that("html element_info is a single string otherwise generates error", {
   expect_error(get_html_text(ons_url, element_info), "Invalid element information input")
 })
 
-#unit test for error/return empty string
 
 
 
