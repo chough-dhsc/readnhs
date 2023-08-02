@@ -13,20 +13,22 @@ knitr::opts_chunk$set(
 )
 ```
 
-# onswebscrapper
+# readons
 
 <!-- badges: start -->
 <!-- badges: end -->
 
-onswebscrapper aims to facilitate webscraping of datasets from the UK Office for National Statistics (ONS) website. It's goal is to remove the manual steps involved (and time taken) in navigating to an ONS webpage, searching for the most recent dataset of interest and downloading a local copy. It will be particularly useful for incorporating into routine analysis that needs to be regularly updated based on the latest ONS data.
+readons aims to facilitate webscraping of datasets from the UK Office for National Statistics (ONS) website. It's goal is to remove the manual steps involved (and time taken) in navigating to an ONS webpage, searching for the most recent dataset of interest and downloading a local copy. It will be particularly useful for incorporating into routine analysis that needs to be regularly updated based on the latest ONS data.
+
+Note that users are advised to first check whether the ONS data required is available through API. If so, onsr package (https://cran.r-project.org/web/packages/onsr/readme/README.html) provides a client for the ‘Office of National Statistics’ (‘ONS’) API https://api.beta.ons.gov.uk/v1 and this currently covers data such as wellbeing, deaths, trade, tax and benefits, suicides, gdp, population estimates, life expectancy, labour market, GDP, and ASHE. See README file for full list of data available through API. If the required ONS data is not available through API, then the readons package can be used to webscrape the data.
 
 ## Installation
 
-You can install the onswebscrapper package as follows:
+You can install the readons package as follows:
 
 ``` r
 if (!requireNamespace("librarian")) install.packages("librarian")
-librarian::shelf(DataS-DHSC/onswebscrapper)
+librarian::shelf(DataS-DHSC/readons)
 ```
 
 ## Usage and Example
