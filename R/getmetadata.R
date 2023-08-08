@@ -153,7 +153,7 @@ get_available_editions <- function(ons_url){
 #' @param ons_url The ONS URL which contains the embedded dataset link.
 #'
 #' @return latest_edition The latest edition name of the dataset
-#' @importFrom gdata first
+#' @importFrom dplyr first
 #' @export
 #'
 #' @examples

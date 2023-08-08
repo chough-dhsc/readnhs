@@ -17,7 +17,7 @@ Suggests:
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Imports: 
-    gdata (>= 2.19.0),
+    dplyr (>= 1.1.2),
     magrittr (>= 2.0.3),
     RCurl (>= 1.98.1.12),
     rvest (>= 1.0.3),
