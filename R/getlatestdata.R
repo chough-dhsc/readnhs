@@ -9,7 +9,7 @@
 #' @return data_url - the first, assuming most recent, data URL on the webpage
 #'
 #' @importFrom RCurl url.exists
-#' @importFrom gdata first
+#' @importFrom dplyr first
 #' @importFrom rvest read_html
 #' @importFrom rvest html_element
 #' @importFrom rvest html_attr
@@ -82,7 +82,7 @@ get_latest_ons_data_url <- function(ons_url) {
 download_latest_ons_data <- function(ons_url, destfilepath) {
 
   #checks if destfile directory exists and if not creates it
-  absolute_directory <- normalizePath(dirname(destfilepath))
+  absolute_directory <- normalizePath(dirname(destfilepath), mustWork = FALSE)
 
   if(!dir.exists(absolute_directory)) {
     dir.create(absolute_directory)
