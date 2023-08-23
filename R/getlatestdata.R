@@ -1,15 +1,13 @@
-# function to extract url of latest ods/xls/csv/xlsx file on that webpage
-# Checks URL is valid, then searches the ons_url for any xlsx links, turns relative links to absolute,
-# then filters to the first (assuming most recent) link
+# function to extract url of latest ods/xls/csv/xlsx/zip file on that webpage
+# Checks URL is valid, then searches the nhs_url for any potential data links, turns relative links to absolute
 
-#' Finds the first (assuming most recent) data (xlsx) URL on an ONS webpage
+#' Finds all embedded data links on an NHS webpage
 #'
-#' @param ons_url The URL for the ONS webpage which contains embedded dataset link/s.
+#' @param nhs_url The URL for the NHS webpage which contains embedded dataset link/s.
 #'
-#' @return data_url - the first, assuming most recent, data URL on the webpage
+#' @return data_urls - all data URLs on the webpage
 #'
 #' @importFrom RCurl url.exists
-#' @importFrom dplyr first
 #' @importFrom rvest read_html
 #' @importFrom rvest html_element
 #' @importFrom rvest html_attr
@@ -19,38 +17,36 @@
 #' @export
 #'
 #' @examples
-#' ons_url <- paste("https://www.ons.gov.uk/peoplepopulationandcommunity/",
-#' "healthandsocialcare/conditionsanddiseases/datasets/coronaviruscovid19",
-#' "infectionsurveydata", sep="")
+#' nhs_url <- paste("https://digital.nhs.uk/data-and-information/publications/",
+#' "statistical/appointments-in-general-practice/june-2023", sep="")
+
+#' get_all_nhs_data_urls(nhs_url)
 #'
-#' get_latest_ons_data_url(ons_url)
-#'
-get_latest_ons_data_url <- function(ons_url) {
+
+get_all_nhs_data_urls <- function(nhs_url) {
 
   # Tests it is a character string, if not stops
-  if(!is.character(ons_url)) {
+  if(!is.character(nhs_url)) {
     stop("Invalid input")
   }
 
   # Tests if URL exists, if not stops
-  if(!url.exists(ons_url)) {
+  if(!url.exists(nhs_url)) {
     stop("Invalid URL")
   }
 
-  data_urls <- read_html(ons_url) %>%
+  data_urls <- read_html(nhs_url) %>%
     html_elements("a") %>%
     html_attr("href") %>%
-    str_subset("\\.ods$|\\.xls$|\\.csv$|\\.xlsx$") %>%
-    url_absolute(ons_url)
+    str_subset("\\.ods$|\\.xls$|\\.csv$|\\.xlsx$|\\.zip$") %>%
+    url_absolute(nhs_url)
 
   # test that data links are available, if not stops
   if(length(data_urls) == 0) {
     stop("No data links available")
   }
 
-  data_url <- first(data_urls)
-
-  return(data_url)
+  return(data_urls)
 }
 
 # function to download latest data to destination location
