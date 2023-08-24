@@ -95,7 +95,7 @@ select_nhs_data_url <- function(nhs_url, item_number) {
 #'
 #' @param nhs_url The URL for the NHS webpage which contains embedded dataset link/s.
 #' @param item_number The element number (based on element order in data_urls) of the URL of interest
-#' @param destfilepath The destination location where you want to save the file.
+#' @param destfilepath The destination location where you want to save the file.Note that the file format type must match the format of the file you are trying to download.
 #'
 #' @return The destination file path
 #' @importFrom RCurl url.exists
@@ -108,7 +108,7 @@ select_nhs_data_url <- function(nhs_url, item_number) {
 #'
 #' item_number <- 4
 #'
-#' destfilepath <- "data.xlsx"
+#' destfilepath <- "data.csv"
 #'
 #' download_nhs_data(nhs_url, 4, destfilepath)
 #'
