@@ -49,15 +49,52 @@ get_all_nhs_data_urls <- function(nhs_url) {
   return(data_urls)
 }
 
+#' Select the data link of interest from all embedded data links on an NHS webpage
+#'
+#' @param nhs_url The URL for the NHS webpage which contains embedded dataset link/s.
+#' @param item_number The element number (based on element order in data_urls) of the URL of interest
+#'
+#' @return data_url - the data URL of interest on the webpage
+#'
+#' @importFrom RCurl url.exists
+#' @importFrom rvest read_html
+#' @importFrom rvest html_element
+#' @importFrom rvest html_attr
+#' @importFrom stringr str_subset
+#' @importFrom xml2 url_absolute
+#'
+#' @export
+#'
+#' @examples
+#' nhs_url <- paste("https://digital.nhs.uk/data-and-information/publications/",
+#' "statistical/appointments-in-general-practice/june-2023", sep="")
+#'
+#' item_number <- 4
+
+#' select_nhs_data_url(nhs_url, item_number)
+#'
+
+
+select_nhs_data_url <- function(nhs_url, item_number) {
+
+  data_urls <- get_all_nhs_data_urls(nhs_url)
+
+  data_url <- data_urls[item_number]
+
+  return(data_url)
+
+}
+
 # function to download latest data to destination location
 # (need to specify mode as wb(write binary) otherwise it will try to make the
 # file compatible with Windows)
 
-#' Downloads first (assuming most recent) dataset link embedded on ONS webpage
+#' Downloads specified dataset link embedded on NHS webpage
 #' and saves in the user specified destination location (and will create new
 #' folder directories if required)
 #'
-#' @param ons_url The URL for the ONS webpage which contains embedded dataset link/s.
+#' @param nhs_url The URL for the NHS webpage which contains embedded dataset link/s.
+#' @param item_number The element number (based on element order in data_urls) of the URL of interest
 #' @param destfilepath The destination location where you want to save the file.
 #'
 #' @return The destination file path
@@ -66,16 +103,17 @@ get_all_nhs_data_urls <- function(nhs_url) {
 #' @export
 #'
 #' @examples
-#' ons_url <- paste("https://www.ons.gov.uk/peoplepopulationandcommunity/",
-#' "healthandsocialcare/conditionsanddiseases/datasets/coronaviruscovid19",
-#' "infectionsurveydata", sep="")
+#' nhs_url <- paste("https://digital.nhs.uk/data-and-information/publications/",
+#' "statistical/appointments-in-general-practice/june-2023", sep="")
 #'
+#' item_number <- 4
 #'
-#' destfilepath <- "data/cisdata.xlsx"
+#' destfilepath <- "data.xlsx"
 #'
-#' download_latest_ons_data(ons_url, destfilepath)
+#' download_latest_nhs_data(nhs_url, 4, destfilepath)
 #'
-download_latest_ons_data <- function(ons_url, destfilepath) {
+
+download_latest_nhs_data <- function(nhs_url, item_number, destfilepath) {
 
   #checks if destfile directory exists and if not creates it
   absolute_directory <- normalizePath(dirname(destfilepath), mustWork = FALSE)
@@ -85,8 +123,10 @@ download_latest_ons_data <- function(ons_url, destfilepath) {
     print(paste0("Directory did not exist and has been created: ", absolute_directory))
   }
 
-  data_url <- get_latest_ons_data_url(ons_url)
+  data_url <- select_nhs_data_url(nhs_url, item_number)
+
   download.file(data_url, destfilepath, mode="wb")
+
   return(normalizePath(destfilepath))
 }
 
