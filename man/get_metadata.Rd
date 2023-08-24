@@ -2,23 +2,23 @@
 % Please edit documentation in R/getmetadata.R
 \name{get_metadata}
 \alias{get_metadata}
-\title{Higher level function that retrieves relevant metadata for ONS datasets}
+\title{Retrieves metadata from NHS webpage}
 \usage{
-get_metadata(ons_url)
+get_metadata(nhs_url)
 }
 \arguments{
-\item{ons_url}{The ONS URL which contains the embedded dataset link.}
+\item{nhs_url}{The NHS URL which contains the embedded dataset link.}
 }
 \value{
-metadata A list containing the dataset title, latest edition, release date, when it will next be updated and additional information about the dataset.
+metadata A table containing the publication title, publication date, geographic coverage and granularity and date range.
 }
 \description{
-Higher level function that retrieves relevant metadata for ONS datasets
+Retrieves metadata from NHS webpage
 }
 \examples{
-ons_url <- paste("https://www.ons.gov.uk/peoplepopulationandcommunity/",
-"healthandsocialcare/conditionsanddiseases/datasets/coronaviruscovid19",
-"infectionsurveydata", sep="")
+nhs_url <- paste("https://digital.nhs.uk/data-and-information/publications/",
+"statistical/appointments-in-general-practice/june-2023", sep="")
 
-get_metadata(ons_url)
+get_metadata(nhs_url)
+
 }
