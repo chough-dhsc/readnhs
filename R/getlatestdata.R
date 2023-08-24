@@ -1,4 +1,4 @@
-# function to extract url of latest ods/xls/csv/xlsx/zip file on that webpage
+# function to extract url of ods/xls/csv/xlsx/zip file on that webpage
 # Checks URL is valid, then searches the nhs_url for any potential data links, turns relative links to absolute
 
 #' Finds all embedded data links on an NHS webpage
@@ -85,7 +85,7 @@ select_nhs_data_url <- function(nhs_url, item_number) {
 
 }
 
-# function to download latest data to destination location
+# function to download data to destination location
 # (need to specify mode as wb(write binary) otherwise it will try to make the
 # file compatible with Windows)
 
@@ -110,10 +110,10 @@ select_nhs_data_url <- function(nhs_url, item_number) {
 #'
 #' destfilepath <- "data.xlsx"
 #'
-#' download_latest_nhs_data(nhs_url, 4, destfilepath)
+#' download_nhs_data(nhs_url, 4, destfilepath)
 #'
 
-download_latest_nhs_data <- function(nhs_url, item_number, destfilepath) {
+download_nhs_data <- function(nhs_url, item_number, destfilepath) {
 
   #checks if destfile directory exists and if not creates it
   absolute_directory <- normalizePath(dirname(destfilepath), mustWork = FALSE)
