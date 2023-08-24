@@ -4,10 +4,10 @@
 \alias{get_html_text}
 \title{Retrieves html text}
 \usage{
-get_html_text(ons_url, element_info)
+get_html_text(nhs_url, element_info)
 }
 \arguments{
-\item{ons_url}{The ONS URL from which you want to read text.}
+\item{nhs_url}{The NHS URL from which you want to read text.}
 
 \item{element_info}{The html element you want to read.}
 }
@@ -18,11 +18,10 @@ html_text_script The text from the element you have specified.
 Retrieves html text
 }
 \examples{
-ons_url <- paste("https://www.ons.gov.uk/peoplepopulationandcommunity/",
-"healthandsocialcare/conditionsanddiseases/datasets/coronaviruscovid19",
-"infectionsurveydata", sep="")
+nhs_url <- paste("https://digital.nhs.uk/data-and-information/publications/",
+"statistical/appointments-in-general-practice/june-2023", sep="")
 
-element_info <- "h1.page-intro__title"
+element_info <- "dt.nhsd-o-hero__meta-data-item-title"
 
-get_html_text(ons_url, element_info)
+get_html_text(nhs_url, element_info)
 }
