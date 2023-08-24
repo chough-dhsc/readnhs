@@ -1,16 +1,16 @@
-Package: readons
-Title: Package for scrapping data from the UK Office for National Statistics website
+Package: readnhs
+Title: Package for scrapping data from the UK National Health Service - Digital website
 Version: 0.0.0.9000
 Authors@R: 
     person("Caroline", "Hough", email = "caroline.hough@dhsc.gov.uk",
   role = c("aut", "cre"))
-Description: A package of functions to facilitate webscraping metadata and downloading datasets from the UK Office for National Statistics website. 
+Description: A package of functions to facilitate webscraping metadata and downloading datasets from the UK National Health Service - Digital website. 
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
-URL: https://github.com/DataS-DHSC/readons
-BugReports: https://github.com/DataS-DHSC/readons/issues
+URL: https://github.com/DataS-DHSC/readnhs
+BugReports: https://github.com/DataS-DHSC/readnhs/issues
 Suggests: 
     knitr,
     rmarkdown,
