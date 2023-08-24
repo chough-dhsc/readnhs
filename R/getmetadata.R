@@ -51,7 +51,6 @@ get_html_text <- function(nhs_url, element_info){
 #' @param nhs_url The NHS URL which contains the embedded dataset link.
 #'
 #' @return metadata A table containing the publication title, publication date, geographic coverage and granularity and date range.
-#' @importFrom
 #' @export
 #'
 #' @examples
